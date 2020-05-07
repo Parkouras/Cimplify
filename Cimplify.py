@@ -1,4 +1,4 @@
-
+global dataSet
 
 def main():
     welcome()
@@ -34,6 +34,23 @@ def prompt():
         print("crypto key generate rsa")
         print(cryptoBits)
         print("copy running-config startup-config")
+
+    dataSet = [
+        "en",
+        "conf t",
+        "username "+username+"privilege 15 secret "+secret,
+        "ip domain-name"+domainname,"hostname "+hostname,
+        "crypto key generate rsa",cryptoBits,"line vty 0 4",
+        "transport input ssh",
+        "login local"]
+
+def exportSer():
+
+    print("EXPORT THROUGH SERIAL")
+    cont = input("Press any key when you are in global config.")
+    baud = input("Select Baudrate (Default is 9600):")
+    time.sleep(3)
+    print(dataSet)
 
 main()
 
