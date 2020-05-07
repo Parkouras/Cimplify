@@ -1,12 +1,14 @@
 import time
+import serial.tools.list_ports
 
 global dataSet
-dataSet = []
 
 def main():
+    serialConf()
     welcome()
     prompt()
-
+    
+    
 def welcome():
     print("Welcome to Cimplify, the solution to Cisco Brainmelt!")
     print(" ")
@@ -17,6 +19,11 @@ def welcome():
     print(" ")
     print("[3] Exit")
     print(" ")
+
+def serialConf():
+    comPorts = list(serial.tools.list_ports.comports())
+    print (comPorts)
+    
 
 def prompt():
 
@@ -37,25 +44,27 @@ def prompt():
         print("crypto key generate rsa")
         print(cryptoBits)
         print("copy running-config startup-config")
-
-
+        
         dataSet = [
             "en",
             "conf t",
-            "username "+username+"privilege 15 secret "+secret,
-            "ip domain-name"+domainname,"hostname "+hostname,
-            "crypto key generate rsa",cryptoBits,"line vty 0 4",
+            "username "+username+" privilege 15 secret "+secret,
+            "ip domain-name "+domainname,
+            "hostname "+hostname,
+            "crypto key generate rsa",
+            cryptoBits,
+            "line vty 0 4",
             "transport input ssh",
             "login local"]
-        exportSer()
+        
+        print("EXPORT THROUGH SERIAL")
+        baud = input("Select Baudrate (Default is 9600):")
+        cont = input("Make sure you're in global config. Press enter when you are ready.")
+        print(" ")
+        print(" ")
+        print(" ")
+        print(*dataSet, sep = "\n") 
 
-def exportSer():
-    global dataSet
-    print("EXPORT THROUGH SERIAL")
-    baud = input("Select Baudrate (Default is 9600):")
-    cont = input("Press Enter when you are in global config.")
-    time.sleep(3)
-    print(dataSet)
 
 main()
 
