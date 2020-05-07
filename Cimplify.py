@@ -1,4 +1,7 @@
+import time
+
 global dataSet
+dataSet = []
 
 def main():
     welcome()
@@ -35,20 +38,22 @@ def prompt():
         print(cryptoBits)
         print("copy running-config startup-config")
 
-    dataSet = [
-        "en",
-        "conf t",
-        "username "+username+"privilege 15 secret "+secret,
-        "ip domain-name"+domainname,"hostname "+hostname,
-        "crypto key generate rsa",cryptoBits,"line vty 0 4",
-        "transport input ssh",
-        "login local"]
+
+        dataSet = [
+            "en",
+            "conf t",
+            "username "+username+"privilege 15 secret "+secret,
+            "ip domain-name"+domainname,"hostname "+hostname,
+            "crypto key generate rsa",cryptoBits,"line vty 0 4",
+            "transport input ssh",
+            "login local"]
+        exportSer()
 
 def exportSer():
-
+    global dataSet
     print("EXPORT THROUGH SERIAL")
-    cont = input("Press any key when you are in global config.")
     baud = input("Select Baudrate (Default is 9600):")
+    cont = input("Press Enter when you are in global config.")
     time.sleep(3)
     print(dataSet)
 
