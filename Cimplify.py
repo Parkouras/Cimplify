@@ -8,7 +8,6 @@ def main():
     welcome()
     prompt()
     
-    
 def welcome():
     print("Welcome to Cimplify, the solution to Cisco Brainmelt!")
     print(" ")
@@ -24,7 +23,6 @@ def serialConf():
     comPorts = list(serial.tools.list_ports.comports())
     print (comPorts)
     
-
 def prompt():
 
     userSel = input("Select an option:")
@@ -37,14 +35,7 @@ def prompt():
         domainname = input("Domain-Name:")
         hostname = input("Hostname:")
         cryptoBits = input("Select key length of 512-2048 for SSH:")
-        print ("username "+username+"privilege 15 secret "+secret)
-        print("conf t")
-        print("ip domain-name "+domainname)
-        print("hostname "+hostname)
-        print("crypto key generate rsa")
-        print(cryptoBits)
-        print("copy running-config startup-config")
-        
+
         dataSet = [
             "en",
             "conf t",
@@ -58,13 +49,15 @@ def prompt():
             "login local"]
         
         print("EXPORT THROUGH SERIAL")
-        baud = input("Select Baudrate (Default is 9600):")
+        baud = input("Select Baudrate (Press Enter for default of 9600):")
+        if baud ==(""):
+            baud = (9600)
+        print("Baudrate set to "+str(baud)+("."))
         cont = input("Make sure you're in global config. Press enter when you are ready.")
         print(" ")
         print(" ")
         print(" ")
         print(*dataSet, sep = "\n") 
-
 
 main()
 
