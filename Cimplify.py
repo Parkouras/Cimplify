@@ -1,4 +1,8 @@
 import time
+import serial
+import paramiko 
+from paramiko import SSHClient
+
 
 global dataSet
 
@@ -13,7 +17,11 @@ def welcome():
     print(" ")
     print("[2] Configure other settings")
     print(" ")
-    print("[3] Exit")
+    print("[3] Configure Serial")
+    print(" ")
+    print("[4] Configure SSH")
+    print(" ")
+    print("[5] Exit")
 
     userSel = input("Select an option:")
 
@@ -21,6 +29,10 @@ def welcome():
         initConf()
     if userSel == "2":
         additConf()
+    if userSel == "3":
+        print("Not develped yet.")
+    if userSel == "4":
+        sshConf()
 
 def initConf():
 
@@ -81,11 +93,6 @@ def vlan():
         print("vlan name "+vlanName)
         print("no shut")
 
-
-
-    
-
-
 def switchConf():
     print("Switch Configuration")
     print("Use 'help' for options")
@@ -111,6 +118,17 @@ def additConf():
         routerConf()
     if devSel == "S":
         switchConf()
+
+def sshConf():
+    print("SSH Configuration")
+    sshIp = input("IP Address: ")
+    sshUser = input("Username: ")
+    sshPass = input("Password: ")
+    ssh = SSHClient()
+    ssh.load_system_host_keys()
+    ssh.connect(sshUser+"@"+sshIp)
+    ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command('?')
+    print(ssh_stdout) #print the output of ls command
 
 main()
 
